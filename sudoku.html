@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sudoku · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi Sudoku 9×9 với ba mức độ khó, ghi chú ứng viên, gợi ý và kiểm tra.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/sudoku/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page">
+    <div class="game-title">
+      <h1>Sudoku</h1>
+      <span class="subtitle">Điền 1–9 vào mỗi hàng, cột và vùng 3×3</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Bàn chơi">
+        <div class="status-bar">
+          <span class="chip"><span class="label">Thời gian</span> <span id="timer">00:00</span></span>
+          <span class="chip" id="chip-level"></span>
+          <span class="chip" id="chip-progress"></span>
+          <span class="chip" id="chip-state"></span>
+        </div>
+        <div class="board-wrap" id="board"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <h2>Nhập số</h2>
+          <div class="numpad" id="numpad">
+            <button type="button" data-action="digit" data-digit="1">1<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="2">2<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="3">3<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="4">4<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="5">5<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="6">6<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="7">7<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="8">8<span class="count"></span></button>
+            <button type="button" data-action="digit" data-digit="9">9<span class="count"></span></button>
+            <button type="button" data-action="erase" aria-label="Xóa số">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 5H9l-6 7 6 7h11a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M12 9l6 6M18 9l-6 6"/></svg>
+            </button>
+          </div>
+          <div class="tools">
+            <button type="button" class="btn" data-action="undo" id="btn-undo">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14L4 9l5-5"/><path d="M4 9h10a6 6 0 0 1 0 12h-3"/></svg>Hoàn tác
+            </button>
+            <button type="button" class="btn" data-action="notes" id="btn-notes" aria-pressed="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>Ghi chú
+            </button>
+            <button type="button" class="btn" data-action="check">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Kiểm tra
+            </button>
+            <button type="button" class="btn" data-action="hint">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"/></svg>Gợi ý
+            </button>
+          </div>
+          <p class="muted">Bàn phím: phím số để nhập, Shift + số để ghi chú, N bật/tắt ghi chú, mũi tên để di chuyển, Backspace để xóa, Ctrl + Z để hoàn tác.</p>
+        </div>
+
+        <div class="card">
+          <h2>Ván chơi</h2>
+          <div class="segmented" id="difficulty" role="group" aria-label="Mức độ khó">
+            <button type="button" data-action="difficulty" data-value="easy" aria-pressed="false">Dễ</button>
+            <button type="button" data-action="difficulty" data-value="medium" aria-pressed="false">Trung bình</button>
+            <button type="button" data-action="difficulty" data-value="hard" aria-pressed="false">Khó</button>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="new-game">Ván mới</button>
+            <button type="button" class="btn" data-action="restart" id="btn-restart">Chơi lại đề này</button>
+          </div>
+          <p class="muted" id="puzzle-info"></p>
+          <label class="check"><input type="checkbox" id="opt-autoClearNotes"> Tự xóa ghi chú liên quan khi điền số</label>
+          <label class="check"><input type="checkbox" id="opt-highlightSame"> Tô sáng các số giống nhau</label>
+          <label class="check"><input type="checkbox" id="opt-showConflicts"> Báo trùng số ngay lập tức</label>
+        </div>
+
+        <details class="card rules">
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <ul>
+            <li>Điền các chữ số 1–9 vào ô trống sao cho mỗi <b>hàng</b>, <b>cột</b> và <b>vùng 3×3</b> chứa đủ 1–9, không lặp lại.</li>
+            <li>Số in đậm là số đề bài, không sửa được. Số bạn điền có màu khác; số từ gợi ý có màu xanh ngọc.</li>
+            <li>Chạm vào ô để chọn. Hàng, cột, vùng liên quan và các ô cùng số được tô sáng.</li>
+            <li><b>Ghi chú</b>: bật chế độ ghi chú rồi chọn số để thêm/bỏ ứng viên nhỏ trong ô.</li>
+            <li><b>Kiểm tra</b> so sánh với lời giải và đánh dấu đỏ các ô sai. <b>Gợi ý</b> điền đúng ô đang chọn (hoặc một ô dễ nhất).</li>
+            <li>Ván kết thúc khi bàn đầy và thỏa mãn toàn bộ luật Sudoku.</li>
+          </ul>
+          <p class="note"><b>Cách tạo và phân loại đề:</b> đề được sinh ngẫu nhiên từ một lời giải đầy đủ rồi xóa dần các ô theo cặp đối xứng; sau mỗi lần xóa, bộ giải đếm lời giải xác nhận đề vẫn có <b>đúng một lời giải</b>. Độ khó được đo bằng bộ giải mô phỏng kỹ thuật của người chơi:</p>
+          <ul class="note">
+            <li><b>Dễ</b>: 36–40 số gợi ý, giải được chỉ bằng “ô duy nhất” và “vị trí duy nhất”.</li>
+            <li><b>Trung bình</b>: khoảng 30–35 số gợi ý, cần thêm khóa ứng viên (pointing/claiming), cặp/bộ ba lộ hoặc cặp ẩn.</li>
+            <li><b>Khó</b>: đề tối giản (thường 22–30 số), không giải hết được bằng các kỹ thuật trên — cần kỹ thuật nâng cao.</li>
+          </ul>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>

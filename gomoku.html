@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cờ caro · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi Cờ caro (Gomoku) luật tự do 15×15 cho hai người.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/gomoku/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page">
+    <div class="game-title">
+      <h1>Cờ caro</h1>
+      <span class="subtitle">Gomoku luật tự do · bàn 15×15 giao điểm · hai người hoặc với máy</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Bàn cờ">
+        <div class="board-wrap" id="board"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <div class="turn" id="turn" aria-live="polite">
+            <span class="stone black"></span>
+            <span><span class="turn-title">Lượt Đen</span><span class="turn-sub"></span></span>
+          </div>
+        </div>
+
+        <div class="card" id="opponent" aria-label="Chế độ chơi"></div>
+
+        <div class="card">
+          <h2>Điều khiển</h2>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="new-game">Chơi lại</button>
+            <button type="button" class="btn" data-action="undo" id="btn-undo">Hoàn tác</button>
+          </div>
+          <label class="check"><input type="checkbox" id="opt-coords"> Hiện tọa độ</label>
+        </div>
+
+        <div class="card">
+          <h2>Lịch sử nước đi</h2>
+          <ol class="history" id="history"></ol>
+        </div>
+
+        <details class="card rules">
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <ul>
+            <li>Bàn có 15×15 giao điểm; quân được đặt tại <b>giao điểm</b> của các đường kẻ. Chạm vào giao điểm trống để đặt quân.</li>
+            <li>Hai người chơi luân phiên; <b>Đen đi trước</b>.</li>
+            <li><b>Luật tự do (freestyle)</b>: người đầu tiên có <b>ít nhất năm</b> quân liên tiếp theo hàng ngang, hàng dọc hoặc đường chéo sẽ thắng (chuỗi sáu quân trở lên cũng tính thắng).</li>
+            <li>Không áp dụng các luật cấm của Renju (3-3, 4-4, chuỗi dài) cho bên Đen.</li>
+            <li>Nước vừa đi được đánh dấu chấm đỏ; chuỗi thắng được nối bằng một đường đỏ.</li>
+            <li><b>Hòa</b> khi bàn đầy mà chưa ai thắng.</li>
+          </ul>
+          <p><b>Chơi với máy:</b> chọn “Chơi với máy”, bên quân (Đen đi trước) và độ khó. Hoàn tác lùi cả nước của bạn lẫn nước trả lời của máy.</p>
+          <ul class="note">
+            <li><b>Dễ</b>: đánh giá thế cờ đơn giản, đôi khi bỏ sót nước phòng thủ.</li>
+            <li><b>Trung bình</b>: luôn chọn nước tốt nhất theo điểm tấn công + phòng thủ (năm, bốn, ba mở…).</li>
+            <li><b>Khó</b>: thêm tìm kiếm chuỗi nước “bốn” ép buộc (VCF) để tấn công và chặn trước đòn ép của bạn.</li>
+          </ul>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>

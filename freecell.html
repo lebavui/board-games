@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FreeCell · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi FreeCell: bốn ô dự trữ, tám cột bài ngửa, chuyển chuỗi thông minh, có hoàn tác và gợi ý.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/freecell/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page cards-page">
+    <div class="game-title">
+      <h1>FreeCell</h1>
+      <span class="subtitle">Mọi lá đều ngửa — dùng ô dự trữ và cột trống để đưa bài lên đích</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Bàn chơi">
+        <div class="card-toolbar">
+          <button type="button" class="btn" data-action="undo" id="btn-undo" title="Hoàn tác (Ctrl+Z)">↶ Hoàn tác</button>
+          <button type="button" class="btn" data-action="hint" id="btn-hint" title="Gợi ý (H)">💡 Gợi ý</button>
+          <button type="button" class="btn" data-action="new-game">Ván mới</button>
+        </div>
+        <div class="status-bar">
+          <span class="chip" id="chip-game"></span>
+          <span class="chip"><span class="label">Nước đi</span> <span id="moves">0</span></span>
+          <span class="chip"><span class="label">Thời gian</span> <span id="timer">00:00</span></span>
+          <span class="chip" id="chip-state"></span>
+        </div>
+        <div class="board-wrap" id="board"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <h2>Ván chơi</h2>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="new-game">Ván mới</button>
+            <button type="button" class="btn" data-action="restart">Chơi lại ván này</button>
+          </div>
+          <label class="check"><input type="checkbox" id="opt-autoplay"> Tự đưa lá an toàn lên chồng đích</label>
+          <p class="muted" id="stats"></p>
+        </div>
+
+        <details class="card rules" open>
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <ul>
+            <li>Một bộ 52 lá chia <b>ngửa</b> vào tám cột: bốn cột đầu 7 lá, bốn cột sau 6 lá.</li>
+            <li><b>Ô dự trữ</b> (bốn ô bên trái hàng trên): mỗi ô giữ tối đa một lá bất kỳ.</li>
+            <li><b>Trên cột:</b> xếp giảm dần, xen kẽ đỏ (♥ ♦) và đen (♠ ♣). <b>Cột trống</b> nhận bất kỳ lá nào hoặc chuỗi hợp lệ.</li>
+            <li><b>Chồng đích</b> (bốn ô bên phải): mỗi chồng một chất, từ A đến K. Bài đã lên đích không lấy xuống lại.</li>
+            <li><b>Chuyển chuỗi:</b> có thể kéo cả chuỗi hợp lệ trong một thao tác. Trò chơi thực hiện nó bằng các bước chuyển từng lá qua ô dự trữ và cột trống, nên số lá tối đa là
+              <b>(số ô dự trữ trống + 1) × 2<sup>số cột trống</sup></b>. Nếu đích là cột trống, cột đó không được tính làm trung gian.</li>
+            <li><b>Thao tác:</b> kéo thả; hoặc chạm một lá để chọn rồi chạm nơi đến. Chạm lá đang chọn lần nữa (hoặc nhấp đúp) để tự chuyển: lên đích, sang cột phù hợp, hoặc vào ô dự trữ trống.</li>
+            <li><b>Tự đưa lá an toàn lên đích</b> (có thể tắt): chỉ đưa A, 2 và các lá không còn cần làm chỗ đặt cho lá khác màu nhỏ hơn. Việc này nằm trong cùng một bước hoàn tác với nước vừa đi.</li>
+            <li><b>Thắng</b> khi cả 52 lá đã lên bốn chồng đích.</li>
+          </ul>
+          <p class="note">Ván được chia ngẫu nhiên theo số ván (seed) của trò chơi này, không theo cách đánh số của Microsoft; <b>không phải ván ngẫu nhiên nào cũng chắc chắn có lời giải</b>. Gợi ý chỉ là <b>một nước đi hợp lệ</b> theo thứ tự ưu tiên đơn giản, không phải nước tối ưu. Phím tắt: Ctrl+Z / U hoàn tác, H gợi ý, Esc bỏ chọn.</p>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>

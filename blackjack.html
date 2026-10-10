@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Blackjack · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi Blackjack với nhà cái bằng điểm ảo: shoe 6 bộ, Hit, Stand, Double Down. Không có tiền thật.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/blackjack/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page cards-page">
+    <div class="game-title">
+      <h1>Blackjack</h1>
+      <span class="subtitle">Đấu nhà cái bằng điểm ảo — không có tiền thật, không nạp hay rút tiền</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Bàn chơi">
+        <div class="status-bar">
+          <span class="chip"><span class="label">Điểm còn lại</span> <span id="balance">0</span></span>
+          <span class="chip"><span class="label">Cược</span> <span id="bet">0</span></span>
+          <span class="chip"><span class="label">Shoe</span> <span id="shoe"></span></span>
+        </div>
+        <div class="board-wrap" id="board"></div>
+        <div class="bj-controls">
+          <p class="bj-message" id="message" aria-live="polite"></p>
+          <div class="bj-controls" id="bet-controls">
+            <div class="bj-row" role="group" aria-label="Thêm cược">
+              <button type="button" class="chip-btn" data-action="chip" data-value="10" aria-label="Thêm 10 điểm">10</button>
+              <button type="button" class="chip-btn" data-action="chip" data-value="50" aria-label="Thêm 50 điểm">50</button>
+              <button type="button" class="chip-btn" data-action="chip" data-value="100" aria-label="Thêm 100 điểm">100</button>
+              <button type="button" class="chip-btn" data-action="chip" data-value="500" aria-label="Thêm 500 điểm">500</button>
+            </div>
+            <div class="bj-row">
+              <button type="button" class="btn btn-ghost" data-action="clear" id="btn-clear">Xóa cược</button>
+              <button type="button" class="btn btn-ghost" data-action="all-in" id="btn-all-in">Cược tối đa</button>
+              <button type="button" class="btn btn-primary" data-action="deal" id="btn-deal">Chia bài</button>
+            </div>
+          </div>
+          <div class="bj-row" id="play-controls" hidden>
+            <button type="button" class="btn btn-primary" data-action="hit" id="btn-hit" title="Rút thêm một lá (phím H)">Rút (Hit)</button>
+            <button type="button" class="btn" data-action="stand" id="btn-stand" title="Dừng, đến lượt nhà cái (phím S)">Dừng (Stand)</button>
+            <button type="button" class="btn" data-action="double" id="btn-double">Gấp đôi (Double)</button>
+          </div>
+          <div class="bj-row" id="done-controls" hidden>
+            <button type="button" class="btn btn-primary" data-action="again" id="btn-again">Chia ván tiếp</button>
+            <button type="button" class="btn" data-action="rebet" id="btn-rebet">Đổi mức cược</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <h2>Phiên chơi</h2>
+          <div class="stat-grid">
+            <span>Số ván</span><span id="stat-hands">0</span>
+            <span>Thắng / thua / hòa</span><span id="stat-wld">0 / 0 / 0</span>
+            <span>Blackjack</span><span id="stat-bj">0</span>
+            <span>Lãi / lỗ (điểm ảo)</span><span id="stat-net">0</span>
+            <span>Cao nhất</span><span id="stat-peak">0</span>
+            <span>Mã shoe</span><span id="stat-seed"></span>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="new-session">Phiên mới</button>
+            <button type="button" class="btn" data-action="restart-session">Chơi lại phiên này</button>
+          </div>
+          <p class="muted">Mỗi phiên bắt đầu với 1.000 điểm ảo. Điểm ảo không có giá trị, không đổi được thành tiền, không nạp hay rút.</p>
+        </div>
+
+        <details class="card rules" open>
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <ul>
+            <li>Bạn đấu một chọi một với nhà cái. Mục tiêu: tổng điểm gần 21 hơn nhà cái mà không vượt quá 21.</li>
+            <li><b>Điểm lá bài:</b> 2–10 theo số; J, Q, K = 10; A = 1 hoặc 11 (tự chọn cách có lợi). Tổng “7/17” nghĩa là tay mềm (soft), A đang tính 11.</li>
+            <li><b>Cược:</b> chọn trước khi chia, tối thiểu 10, là bội số của 10 điểm — nhờ vậy khoản trả 3:2 luôn là số điểm nguyên (ví dụ cược 10 thắng Blackjack được 15).</li>
+            <li><b>Chia bài:</b> mỗi bên hai lá; một lá của nhà cái úp. Nếu lá ngửa của nhà cái là A hoặc lá 10 điểm, nhà cái <b>kiểm tra Blackjack trước</b> khi bạn hành động; nếu có, ván kết thúc ngay.</li>
+            <li><b>Rút (Hit)</b> thêm lá; <b>Dừng (Stand)</b> để nhà cái chơi; <b>Gấp đôi (Double Down)</b> chỉ với hai lá đầu và khi đủ điểm: cược gấp đôi, nhận đúng một lá rồi dừng. Đạt 21 điểm thì tự dừng. Phiên bản này chưa có Split và Insurance.</li>
+            <li><b>Nhà cái</b> lật lá úp và rút tới khi đạt ít nhất 17; <b>dừng ở mọi tổng 17, kể cả soft 17</b>.</li>
+            <li><b>Thanh toán:</b> Blackjack tự nhiên (A + lá 10 điểm trong hai lá đầu) trả <b>3:2</b>; thắng thường trả <b>1:1</b>; hòa được trả lại cược; quá 21 là thua ngay. Tổng 21 từ ba lá trở lên là 21 thường, không phải Blackjack.</li>
+            <li><b>Shoe</b> gồm 6 bộ bài (312 lá), được xáo lại giữa hai ván khi đã dùng khoảng 75% (234 lá).</li>
+          </ul>
+          <p class="note">Không có hoàn tác sau khi đã chia bài. Ván đang chơi được lưu tự động. “Chơi lại phiên này” xáo shoe đúng như đầu phiên (cùng thứ tự bài) và trả điểm về 1.000. Phím tắt: H rút, S dừng, D gấp đôi, Enter chia bài / ván tiếp.</p>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>

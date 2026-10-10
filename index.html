@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Bộ sưu tập trò chơi trí tuệ trên bàn: Sudoku, Kakuro, Dò mìn, Cờ vua, Cờ đam, Cờ caro, Bắn tàu và các game bài Solitaire Klondike, FreeCell, Spider, Blackjack.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/home.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header">
+    <nav class="nav-inner" aria-label="Trò chơi">
+      <a class="brand" href="index.html">Trí Tuệ <b>Bàn Cờ</b></a>
+      <ul class="nav-links static-nav">
+        <li><a href="sudoku.html">Sudoku</a></li>
+        <li><a href="kakuro.html">Kakuro</a></li>
+        <li><a href="minesweeper.html">Dò mìn</a></li>
+        <li><a href="chess.html">Cờ vua</a></li>
+        <li><a href="checkers.html">Cờ đam</a></li>
+        <li><a href="gomoku.html">Cờ caro</a></li>
+        <li><a href="battleship.html">Bắn tàu</a></li>
+        <li><a href="klondike.html">Solitaire Klondike</a></li>
+        <li><a href="freecell.html">FreeCell</a></li>
+        <li><a href="spider.html">Spider Solitaire</a></li>
+        <li><a href="blackjack.html">Blackjack</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Rèn luyện trí tuệ với <span>trò chơi trên bàn và game bài</span></h1>
+      <p>Giải đố một mình với Sudoku, Kakuro và Dò mìn, hoặc đấu Cờ vua, Cờ đam và Cờ caro với bạn bè trên cùng một thiết bị hay với máy ở ba mức độ khó, hay đấu trí Bắn tàu với máy. Hoặc thư giãn với các game bài: Solitaire Klondike, FreeCell, Spider và Blackjack (chỉ dùng điểm ảo). Tiến trình được lưu tự động — bạn có thể quay lại chơi tiếp bất cứ lúc nào.</p>
+    </section>
+
+    <!-- Danh sách tĩnh: luôn có link kể cả khi JavaScript chưa chạy; js/home.js thay bằng thẻ có ảnh minh họa và tiến trình đã lưu. -->
+    <div id="game-groups">
+      <section aria-labelledby="group-board">
+        <h2 class="group-title" id="group-board">Trò chơi trên bàn<small>Giải đố và cờ</small></h2>
+        <div class="game-grid">
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Giải đố · 1 người</span>
+              <h2><a href="sudoku.html">Sudoku</a></h2>
+              <p>Điền các số 1–9 sao cho mỗi hàng, cột và vùng 3×3 không lặp lại. Ba mức độ khó, đề luôn có đúng một lời giải.</p>
+              <a class="btn btn-primary" href="sudoku.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Giải đố · 1 người</span>
+              <h2><a href="kakuro.html">Kakuro</a></h2>
+              <p>Ô chữ bằng số: điền các chữ số để mỗi dãy đạt đúng tổng gợi ý mà không lặp số.</p>
+              <a class="btn btn-primary" href="kakuro.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Logic · 1 người</span>
+              <h2><a href="minesweeper.html">Dò mìn</a></h2>
+              <p>Mở hết các ô an toàn mà không chạm vào mìn. Lần mở đầu tiên luôn an toàn.</p>
+              <a class="btn btn-primary" href="minesweeper.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Chiến thuật · 2 người / với máy</span>
+              <h2><a href="chess.html">Cờ vua</a></h2>
+              <p>Cờ vua tiêu chuẩn đầy đủ luật: nhập thành, bắt tốt qua đường, phong cấp và các kiểu hòa.</p>
+              <a class="btn btn-primary" href="chess.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Chiến thuật · 2 người / với máy</span>
+              <h2><a href="checkers.html">Cờ đam</a></h2>
+              <p>American Checkers trên bàn 8×8: bắt quân bắt buộc, nhảy liên tiếp và phong vua.</p>
+              <a class="btn btn-primary" href="checkers.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Chiến thuật · 2 người / với máy</span>
+              <h2><a href="gomoku.html">Cờ caro</a></h2>
+              <p>Gomoku tự do trên bàn 15×15: ai có năm quân liên tiếp trước sẽ thắng.</p>
+              <a class="btn btn-primary" href="gomoku.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Chiến thuật · đấu với máy</span>
+              <h2><a href="battleship.html">Bắn tàu</a></h2>
+              <p>Bố trí năm tàu trên bàn 10×10 rồi thay phiên bắn: đánh chìm toàn bộ hạm đội đối phương trước để thắng.</p>
+              <a class="btn btn-primary" href="battleship.html">Chơi</a>
+            </div>
+          </article>
+        </div>
+      </section>
+      <section aria-labelledby="group-cards">
+        <h2 class="group-title" id="group-cards">Game bài<small>Solitaire và Blackjack · bộ bài tự vẽ, chỉ dùng điểm ảo</small></h2>
+        <div class="game-grid">
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Game bài · 1 người</span>
+              <h2><a href="klondike.html">Solitaire Klondike</a></h2>
+              <p>Solitaire cổ điển: xếp cột giảm dần xen kẽ màu, đưa bài lên đích từ A đến K. Rút 1 hoặc 3 lá.</p>
+              <a class="btn btn-primary" href="klondike.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Game bài · 1 người</span>
+              <h2><a href="freecell.html">FreeCell</a></h2>
+              <p>Mọi lá đều ngửa: dùng bốn ô dự trữ và cột trống để sắp xếp bài lên đích.</p>
+              <a class="btn btn-primary" href="freecell.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Game bài · 1 người</span>
+              <h2><a href="spider.html">Spider Solitaire</a></h2>
+              <p>Hai bộ bài, mười cột: ghép đủ tám chuỗi K đến A cùng chất. Một, hai hoặc bốn chất.</p>
+              <a class="btn btn-primary" href="spider.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Game bài · đấu nhà cái</span>
+              <h2><a href="blackjack.html">Blackjack</a></h2>
+              <p>Đạt gần 21 hơn nhà cái mà không quá. Chỉ dùng điểm ảo — không có tiền thật.</p>
+              <a class="btn btn-primary" href="blackjack.html">Chơi</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Hãy bật JavaScript để chơi và xem tiến trình đã lưu.</p></noscript>
+</body>
+</html>

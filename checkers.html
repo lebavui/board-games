@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cờ đam · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi Cờ đam (American Checkers / English Draughts) hai người trên bàn 8×8.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/checkers/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page">
+    <div class="game-title">
+      <h1>Cờ đam</h1>
+      <span class="subtitle">American Checkers / English Draughts · bàn 8×8 · hai người hoặc với máy</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Bàn cờ">
+        <div class="board-wrap" id="board"></div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <div class="turn" id="turn" aria-live="polite">
+            <span class="stone black"></span>
+            <span><span class="turn-title">Lượt Đen</span><span class="turn-sub"></span></span>
+          </div>
+          <div class="status-bar" style="justify-content:flex-start">
+            <span class="chip"><span class="label" id="label-b">Đen</span> <span id="count-b"></span></span>
+            <span class="chip"><span class="label" id="label-r">Đỏ</span> <span id="count-r"></span></span>
+          </div>
+        </div>
+
+        <div class="card" id="opponent" aria-label="Chế độ chơi"></div>
+
+        <div class="card">
+          <h2>Điều khiển</h2>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="new-game">Ván mới</button>
+            <button type="button" class="btn" data-action="undo" id="btn-undo">Hoàn tác</button>
+            <button type="button" class="btn" data-action="flip">Xoay bàn</button>
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost" data-action="draw" id="btn-draw">Hòa thỏa thuận</button>
+            <button type="button" class="btn btn-ghost" data-action="resign" id="btn-resign">Đầu hàng</button>
+          </div>
+          <label class="check"><input type="checkbox" id="opt-numbers"> Hiện số ô (1–32) theo ký hiệu chuẩn</label>
+        </div>
+
+        <div class="card">
+          <h2>Lịch sử nước đi</h2>
+          <ol class="history" id="history"></ol>
+          <p class="muted">Ký hiệu: “11-15” là đi thường, “22×15×8” là nhảy bắt (liên tiếp), ♔ là được phong vua.</p>
+        </div>
+
+        <details class="card rules">
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <p><b>Biến thể:</b> American Checkers / English Draughts (luật của WCDF) trên bàn 8×8.</p>
+          <ul>
+            <li>Mỗi bên có 12 quân đặt trên các ô tối của ba hàng gần mình. Quân chỉ di chuyển trên ô tối. <b>Đen đi trước</b>.</li>
+            <li><b>Quân thường</b> đi chéo về phía trước một ô và chỉ bắt chéo về phía trước.</li>
+            <li><b>Bắt quân</b>: nhảy qua quân đối phương ở ô chéo kề sang ô trống ngay sau nó; quân bị nhảy qua bị loại.</li>
+            <li><b>Bắt là bắt buộc.</b> Nếu có nhiều cách bắt, bạn được chọn bất kỳ cách nào (không bắt buộc chọn cách bắt nhiều nhất). Các quân có thể bắt được tô sáng.</li>
+            <li>Sau khi bắt, nếu quân đó còn bắt được tiếp thì <b>bắt buộc tiếp tục nhảy bằng chính quân đó</b>.</li>
+            <li>Quân thường đến hàng cuối được <b>phong vua</b> và lượt đi kết thúc ngay (kể cả khi vua mới có thể bắt tiếp).</li>
+            <li><b>Vua</b> đi và bắt chéo cả tiến lẫn lùi, mỗi bước một ô (không đi xa nhiều ô).</li>
+            <li><b>Thắng</b> khi đối phương hết quân hoặc không còn nước đi hợp lệ. Hai người có thể thỏa thuận hòa.</li>
+            <li><b>Hoàn tác</b> quay lại đầu lượt trước (hoặc đầu lượt hiện tại nếu đang nhảy liên tiếp).</li>
+          </ul>
+          <p><b>Chơi với máy:</b> chọn “Chơi với máy”, bên quân (Đen đi trước) và độ khó. Máy đi trọn một lượt, kể cả chuỗi nhảy liên tiếp (hiển thị từng bước). Hoàn tác lùi về đầu lượt trước của bạn. Máy chấp nhận đề nghị hòa khi nó không có lợi thế.</p>
+          <ul class="note">
+            <li><b>Dễ</b>: tính 2 nửa lượt, thỉnh thoảng đi ngẫu nhiên.</li>
+            <li><b>Trung bình</b>: tính 4 nửa lượt, luôn xét hết chuỗi bắt quân.</li>
+            <li><b>Khó</b>: tìm kiếm sâu dần tới khi hết khoảng 1,6 giây cho mỗi lượt.</li>
+          </ul>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>
