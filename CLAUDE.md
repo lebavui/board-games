@@ -5,7 +5,7 @@ Hướng dẫn cho Claude Code khi làm việc trong kho mã này.
 ## Tổng quan
 
 **Trí Tuệ Bàn Cờ** — website trò chơi trí tuệ chạy hoàn toàn trên trình duyệt: Sudoku, Kakuro, Dò mìn,
-Cờ vua, Cờ đam, Cờ caro, Bắn tàu và nhóm game bài (Klondike, FreeCell, Spider, Blackjack).
+Xếp gạch (Tetris), Cờ vua, Cờ tướng, Cờ đam, Cờ caro, Bắn tàu và nhóm game bài (Klondike, FreeCell, Spider, Blackjack).
 HTML/CSS/JavaScript thuần (ES modules) + p5.js 1.9.4 (instance mode). **Không có backend, không có bước build,
 không có `package.json`** — đừng thêm bundler, framework hay dependency npm.
 

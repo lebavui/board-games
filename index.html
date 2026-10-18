@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Trí Tuệ Bàn Cờ</title>
-  <meta name="description" content="Bộ sưu tập trò chơi trí tuệ trên bàn: Sudoku, Kakuro, Dò mìn, Cờ vua, Cờ đam, Cờ caro, Bắn tàu và các game bài Solitaire Klondike, FreeCell, Spider, Blackjack.">
+  <meta name="description" content="Bộ sưu tập trò chơi trí tuệ trên bàn: Sudoku, Kakuro, Dò mìn, Xếp gạch, Cờ vua, Cờ tướng, Cờ đam, Cờ caro, Bắn tàu và các game bài Solitaire Klondike, FreeCell, Spider, Blackjack.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
@@ -20,7 +20,9 @@
         <li><a href="sudoku.html">Sudoku</a></li>
         <li><a href="kakuro.html">Kakuro</a></li>
         <li><a href="minesweeper.html">Dò mìn</a></li>
+        <li><a href="tetris.html">Xếp gạch</a></li>
         <li><a href="chess.html">Cờ vua</a></li>
+        <li><a href="xiangqi.html">Cờ tướng</a></li>
         <li><a href="checkers.html">Cờ đam</a></li>
         <li><a href="gomoku.html">Cờ caro</a></li>
         <li><a href="battleship.html">Bắn tàu</a></li>
@@ -35,7 +37,7 @@
   <main class="container">
     <section class="hero">
       <h1>Rèn luyện trí tuệ với <span>trò chơi trên bàn và game bài</span></h1>
-      <p>Giải đố một mình với Sudoku, Kakuro và Dò mìn, hoặc đấu Cờ vua, Cờ đam và Cờ caro với bạn bè trên cùng một thiết bị hay với máy ở ba mức độ khó, hay đấu trí Bắn tàu với máy. Hoặc thư giãn với các game bài: Solitaire Klondike, FreeCell, Spider và Blackjack (chỉ dùng điểm ảo). Tiến trình được lưu tự động — bạn có thể quay lại chơi tiếp bất cứ lúc nào.</p>
+      <p>Giải đố một mình với Sudoku, Kakuro, Dò mìn và Xếp gạch, hoặc đấu Cờ vua, Cờ tướng, Cờ đam và Cờ caro với bạn bè trên cùng một thiết bị hay với máy ở ba mức độ khó, hay đấu trí Bắn tàu với máy. Hoặc thư giãn với các game bài: Solitaire Klondike, FreeCell, Spider và Blackjack (chỉ dùng điểm ảo). Tiến trình được lưu tự động — bạn có thể quay lại chơi tiếp bất cứ lúc nào.</p>
     </section>
 
     <!-- Danh sách tĩnh: luôn có link kể cả khi JavaScript chưa chạy; js/home.js thay bằng thẻ có ảnh minh họa và tiến trình đã lưu. -->
@@ -69,10 +71,26 @@
           </article>
           <article class="game-card">
             <div class="body">
+              <span class="tag">Xếp hình · 1 người</span>
+              <h2><a href="tetris.html">Xếp gạch</a></h2>
+              <p>Xếp gạch kiểu Tetris: xoay, giữ khối và lấp đầy hàng ngang để xóa. Càng lên cấp khối rơi càng nhanh.</p>
+              <a class="btn btn-primary" href="tetris.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
               <span class="tag">Chiến thuật · 2 người / với máy</span>
               <h2><a href="chess.html">Cờ vua</a></h2>
               <p>Cờ vua tiêu chuẩn đầy đủ luật: nhập thành, bắt tốt qua đường, phong cấp và các kiểu hòa.</p>
               <a class="btn btn-primary" href="chess.html">Chơi</a>
+            </div>
+          </article>
+          <article class="game-card">
+            <div class="body">
+              <span class="tag">Chiến thuật · 2 người / với máy</span>
+              <h2><a href="xiangqi.html">Cờ tướng</a></h2>
+              <p>Cờ tướng trên bàn 9×10: chiếu bí Tướng đối phương. Ký hiệu nước đi kiểu Việt Nam, quân chữ Hán hoặc tiếng Việt.</p>
+              <a class="btn btn-primary" href="xiangqi.html">Chơi</a>
             </div>
           </article>
           <article class="game-card">

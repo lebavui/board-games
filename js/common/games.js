@@ -31,11 +31,27 @@ export const GAMES = [
   },
   {
     group: 'board',
+    id: 'tetris',
+    name: 'Xếp gạch',
+    href: 'tetris.html',
+    tag: 'Xếp hình · 1 người',
+    desc: 'Xếp gạch kiểu Tetris: xoay, giữ khối và lấp đầy hàng ngang để xóa. Càng lên cấp khối rơi càng nhanh.',
+  },
+  {
+    group: 'board',
     id: 'chess',
     name: 'Cờ vua',
     href: 'chess.html',
     tag: 'Chiến thuật · 2 người / với máy',
     desc: 'Cờ vua tiêu chuẩn đầy đủ luật: nhập thành, bắt tốt qua đường, phong cấp và các kiểu hòa.',
+  },
+  {
+    group: 'board',
+    id: 'xiangqi',
+    name: 'Cờ tướng',
+    href: 'xiangqi.html',
+    tag: 'Chiến thuật · 2 người / với máy',
+    desc: 'Cờ tướng trên bàn 9×10: chiếu bí Tướng đối phương. Ký hiệu nước đi kiểu Việt Nam, quân chữ Hán hoặc tiếng Việt.',
   },
   {
     group: 'board',

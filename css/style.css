@@ -64,6 +64,8 @@
   --sea-2: #c4dff3;
   --sea-line: #93bcdc;
   --sea-label: #45607a;
+  --well: #1b2030;
+  --well-grid: #272d40;
   --ship: #66778f;
   --ship-edge: #2f3b4d;
   --ship-deck: #3f4c60;
@@ -129,6 +131,8 @@
     --sea-2: #12314f;
     --sea-line: #275178;
     --sea-label: #9ab4cc;
+    --well: #0b0e15;
+    --well-grid: #191e2b;
     --ship: #8597b0;
     --ship-edge: #d5dfec;
     --ship-deck: #4b5a70;
@@ -194,6 +198,8 @@
   --sea-2: #12314f;
   --sea-line: #275178;
   --sea-label: #9ab4cc;
+  --well: #0b0e15;
+  --well-grid: #191e2b;
   --ship: #8597b0;
   --ship-edge: #d5dfec;
   --ship-deck: #4b5a70;
@@ -998,3 +1004,26 @@ main { flex: 1; width: 100%; }
   .bs-boards.battle #enemy-wrap { order: -1; }
   .bs-ships { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Xếp gạch */
+.tetris-pad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  max-width: 380px;
+  align-self: center;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tetris-pad .btn { min-height: 50px; font-size: 20px; padding: 0; touch-action: none; }
+.tetris-pad [data-key="hold"] { font-size: 15px; }
+.tetris-pad [data-key="left"] { grid-column: 1; }
+.tetris-pad [data-key="down"] { grid-column: 2 / span 2; }
+@media (hover: hover) and (pointer: fine) {
+  .tetris-pad { display: none; }
+}
+.best-list { margin: 0; padding-left: 22px; font-variant-numeric: tabular-nums; }
+.best-list li { margin: 4px 0; }
+.best-list li.muted { list-style: none; margin-left: -22px; }

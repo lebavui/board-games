@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
-const files = ['sudoku', 'kakuro', 'chess', 'checkers', 'gomoku', 'minesweeper', 'chess-ai', 'checkers-ai', 'gomoku-ai', 'battleship', 'cards-deck', 'klondike', 'freecell', 'spider', 'blackjack'].map((n) => path.join(dir, `${n}.test.mjs`));
+const files = ['sudoku', 'kakuro', 'chess', 'xiangqi', 'checkers', 'gomoku', 'minesweeper', 'tetris', 'chess-ai', 'xiangqi-ai', 'checkers-ai', 'gomoku-ai', 'battleship', 'cards-deck', 'klondike', 'freecell', 'spider', 'blackjack'].map((n) => path.join(dir, `${n}.test.mjs`));
 let failed = 0;
 for (const file of files) {
   console.log(`\n▶ ${path.basename(file)}`);

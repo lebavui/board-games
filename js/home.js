@@ -42,9 +42,27 @@ const THUMBS = {
     <g font-family="sans-serif" font-weight="800" font-size="13" text-anchor="middle"><text x="35" y="19" fill="#2563eb">1</text><text x="56" y="40" fill="#15803d">2</text><text x="35" y="61" fill="#2563eb">1</text><text x="56" y="61" fill="#dc2626">3</text></g>
     <path d="M73 9v12" stroke="var(--text)" stroke-width="1.5"/><path d="M73 9l9 4-9 4z" fill="#ef4444"/>
     <circle cx="77" cy="77" r="5" fill="var(--text)"/><path d="M77 70v14M70 77h14" stroke="var(--text)" stroke-width="1.5"/></svg>`,
+  tetris: `<svg viewBox="0 0 90 90"><rect x="2" y="2" width="86" height="86" rx="6" fill="var(--well)"/>
+    <g stroke="var(--well)" stroke-width="1.2">
+    <g fill="#a855f7"><rect x="38" y="10" width="10" height="10" rx="2"/><rect x="28" y="20" width="10" height="10" rx="2"/><rect x="38" y="20" width="10" height="10" rx="2"/><rect x="48" y="20" width="10" height="10" rx="2"/></g>
+    <g fill="#06b6d4"><rect x="8" y="48" width="10" height="10" rx="2"/><rect x="8" y="58" width="10" height="10" rx="2"/><rect x="8" y="68" width="10" height="10" rx="2"/><rect x="8" y="78" width="10" height="8" rx="2"/></g>
+    <g fill="#eab308"><rect x="18" y="68" width="10" height="10" rx="2"/><rect x="28" y="68" width="10" height="10" rx="2"/><rect x="18" y="78" width="10" height="8" rx="2"/><rect x="28" y="78" width="10" height="8" rx="2"/></g>
+    <g fill="#ef4444"><rect x="48" y="68" width="10" height="10" rx="2"/><rect x="58" y="68" width="10" height="10" rx="2"/><rect x="58" y="78" width="10" height="8" rx="2"/><rect x="68" y="78" width="10" height="8" rx="2"/></g>
+    <g fill="#3b82f6"><rect x="68" y="58" width="10" height="10" rx="2"/><rect x="78" y="58" width="8" height="10" rx="2"/><rect x="78" y="68" width="8" height="10" rx="2"/><rect x="78" y="78" width="8" height="8" rx="2"/></g>
+    <g fill="#f97316"><rect x="38" y="78" width="10" height="8" rx="2"/><rect x="48" y="78" width="10" height="8" rx="2"/><rect x="68" y="68" width="10" height="10" rx="2"/></g></g>
+    <g fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="2 1.5"><rect x="39" y="49" width="8" height="8" rx="2"/><rect x="29" y="59" width="8" height="8" rx="2"/><rect x="39" y="59" width="8" height="8" rx="2"/><rect x="49" y="59" width="8" height="8" rx="2"/></g></svg>`,
   chess: `<svg viewBox="0 0 90 90"><g>${[...Array(16)].map((_, k) => `<rect x="${2 + (k % 4) * 21.5}" y="${2 + Math.floor(k / 4) * 21.5}" width="21.5" height="21.5" fill="${(k % 4 + Math.floor(k / 4)) % 2 ? '#b58863' : '#eedfc7'}"/>`).join('')}</g>
     <g stroke="#24222b" stroke-width="1.6" fill="#fbf9f2"><path d="M30 80h20v-5H30z"/><path d="M33 75l-4-24 7 12 4-18 4 18 7-12-4 24z"/><circle cx="29" cy="50" r="2.5"/><circle cx="40" cy="44" r="2.5"/><circle cx="51" cy="50" r="2.5"/></g>
     <g stroke="#0e0d12" stroke-width="1.6" fill="#2b2933"><path d="M52 40h20v-5H52z"/><path d="M55 35c-3-6 0-12 7-12s10 6 7 12z"/><path d="M60 23h4v-9h-4zM57 16h10v3H57z"/></g></svg>`,
+  xiangqi: `<svg viewBox="0 0 90 90"><rect x="2" y="2" width="86" height="86" rx="6" fill="#e6c18a"/>
+    <g stroke="#5b3f1d" stroke-width="1">${[...Array(5)].map((_, k) => `<path d="M${13 + k * 16} 8v32M${13 + k * 16} 50v32"/>`).join('')}${[...Array(5)].map((_, k) => `<path d="M13 ${8 + k * 8}h64M13 ${50 + k * 8}h64"/>`).join('')}
+    <path d="M13 40v10M77 40v10M29 66l32 16M61 66l-32 16" opacity="0.8"/></g>
+    <g font-family="serif" font-weight="700" font-size="11" text-anchor="middle">
+    <circle cx="45" cy="82" r="7.5" fill="#f7e9c8" stroke="#c0262d" stroke-width="1.4"/><text x="45" y="86" fill="#c0262d">帥</text>
+    <circle cx="29" cy="58" r="7.5" fill="#f7e9c8" stroke="#c0262d" stroke-width="1.4"/><text x="29" y="62" fill="#c0262d">炮</text>
+    <circle cx="61" cy="32" r="7.5" fill="#f7e9c8" stroke="#1d1d24" stroke-width="1.4"/><text x="61" y="36" fill="#1d1d24">車</text>
+    <circle cx="45" cy="8" r="7.5" fill="#f7e9c8" stroke="#1d1d24" stroke-width="1.4"/><text x="45" y="12" fill="#1d1d24">將</text>
+    <circle cx="13" cy="24" r="7.5" fill="#f7e9c8" stroke="#1d1d24" stroke-width="1.4"/><text x="13" y="28" fill="#1d1d24">馬</text></g></svg>`,
   checkers: `<svg viewBox="0 0 90 90"><g>${[...Array(16)].map((_, k) => `<rect x="${2 + (k % 4) * 21.5}" y="${2 + Math.floor(k / 4) * 21.5}" width="21.5" height="21.5" fill="${(k % 4 + Math.floor(k / 4)) % 2 ? '#7b5234' : '#f1e2c4'}"/>`).join('')}</g>
     <g><circle cx="34" cy="12.7" r="8" fill="#2a2830" stroke="#0f0e12"/><circle cx="77" cy="12.7" r="8" fill="#2a2830" stroke="#0f0e12"/><circle cx="55.5" cy="34.2" r="8" fill="#2a2830" stroke="#0f0e12"/>
     <circle cx="12.7" cy="77" r="8" fill="#c43a32" stroke="#6d1612"/><circle cx="55.5" cy="77" r="8" fill="#c43a32" stroke="#6d1612"/><circle cx="34" cy="55.5" r="8" fill="#c43a32" stroke="#6d1612"/>
@@ -85,9 +103,19 @@ const SAVE_INFO = {
     return d?.solved?.length ? `Đã giải ${d.solved.length} đề` : null;
   },
   minesweeper: () => (load('minesweeper:game', { peek: true })?.status === 'playing' ? 'Đang chơi dở' : null),
+  tetris: () => {
+    const g = load('tetris:game', { peek: true });
+    if (!g || typeof g.score !== 'number' || !g.pieces || g.status === 'over') return null;
+    return `Đang chơi dở · ${g.score.toLocaleString('vi-VN')} điểm · ${g.lines} hàng`;
+  },
   chess: () => {
     const g = load('chess:game', { version: 2, peek: true });
     if (!g?.moves?.length || g.manualResult) return null;
+    return `${g.opponent?.mode === 'ai' ? 'Ván với máy' : 'Ván đang lưu'} · ${g.moves.length} nửa nước`;
+  },
+  xiangqi: () => {
+    const g = load('xiangqi:game', { peek: true });
+    if (!Array.isArray(g?.moves) || !g.moves.length || g.manual) return null;
     return `${g.opponent?.mode === 'ai' ? 'Ván với máy' : 'Ván đang lưu'} · ${g.moves.length} nửa nước`;
   },
   checkers: () => {

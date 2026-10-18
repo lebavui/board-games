@@ -1,6 +1,6 @@
 # Trí Tuệ Bàn Cờ
 
-Website trò chơi trí tuệ trên bàn: **Sudoku, Kakuro, Dò mìn, Cờ vua, Cờ đam, Cờ caro, Bắn tàu**, cùng nhóm
+Website trò chơi trí tuệ trên bàn: **Sudoku, Kakuro, Dò mìn, Xếp gạch, Cờ vua, Cờ tướng, Cờ đam, Cờ caro, Bắn tàu**, cùng nhóm
 **Game bài**: **Solitaire Klondike, FreeCell, Spider Solitaire, Blackjack**.
 HTML/CSS/JavaScript thuần (ES modules) + **p5.js 1.9.4** (instance mode) để vẽ bàn chơi.
 Không cần backend hay bước build.
@@ -15,7 +15,7 @@ python -m http.server 8000
 ```
 
 Rồi mở <http://localhost:8000/>. Mỗi trò chơi có URL riêng: `sudoku.html`, `kakuro.html`,
-`minesweeper.html`, `chess.html`, `checkers.html`, `gomoku.html`, `battleship.html`, `klondike.html`, `freecell.html`,
+`minesweeper.html`, `tetris.html`, `chess.html`, `xiangqi.html`, `checkers.html`, `gomoku.html`, `battleship.html`, `klondike.html`, `freecell.html`,
 `spider.html`, `blackjack.html`. Trên thanh điều hướng, các game bài nằm trong menu **Game bài**;
 trang chủ chia thành hai nhóm “Trò chơi trên bàn” và “Game bài”.
 
@@ -71,9 +71,25 @@ Ván chơi được lưu sau mỗi nước; đổi kích thước cửa sổ ch�
 - **Dò mìn** — mìn được đặt sau lần mở đầu tiên (ô đó và các ô kề luôn an toàn). Chuột phải
   hoặc nhấn giữ để cắm cờ; trên điện thoại có nút chuyển Mở ô / Cắm cờ. Bàn Khó (30×16)
   được xoay dọc trên màn hình hẹp.
+- **Xếp gạch** (kiểu Tetris) — giếng 10×20 (thêm 2 hàng ẩn phía trên để khối xuất hiện). Thứ tự khối theo túi 7
+  (Mulberry32 theo seed, trạng thái RNG nằm trong bản lưu nên tải lại vẫn ra đúng dãy khối), hiện 5 khối tiếp theo,
+  ô Giữ (mỗi khối giữ một lần), bóng khối (tắt được). Xoay SRS có đá tường; khóa trễ 0,5 giây, gia hạn tối đa 15 lần
+  khi di chuyển/xoay. Trọng lực theo công thức chuẩn `(0,8 − (cấp−1)·0,007)^(cấp−1)` giây/hàng; rơi nhanh ×20.
+  Điểm × cấp: 100/300/500/800 cho 1–4 hàng, T-spin 400/800/1200/1600 (nhận theo quy tắc 3 góc, không tách T-spin mini),
+  B2B ×1,5 cho Tetris/T-spin liên tiếp, combo +50 × combo × cấp, rơi nhanh +1 và thả thẳng +2 mỗi hàng. Lên cấp mỗi 10
+  hàng tính từ cấp bắt đầu (1–15, tối đa 20). Thua khi khối mới không có chỗ xuất hiện hoặc khóa hoàn toàn trên đỉnh.
+  Thời gian chạy qua `tick(game, dt)` nên luật tất định; ván tự tạm dừng khi rời tab và khi tải lại trang. Lưu sau mỗi
+  khối khóa; bảng 5 điểm cao. Trên thiết bị cảm ứng có bàn phím ảo (giữ ◀ ▶ ▼ để lặp), chạm giếng để xoay.
 - **Cờ vua** — luật do chess.js xử lý (nhập thành, bắt tốt qua đường, phong cấp, chiếu hết,
   hết nước, lặp ba lần, 50 nước, thiếu quân); p5 vẽ bàn và quân dạng vector.
   Hòa do lặp ba lần và 50 nước được tuyên bố tự động.
+- **Cờ tướng** — luật tự viết trong `logic.js` (bàn 90 giao điểm, Đỏ đi trước): cản chân Mã, cản mắt Tượng,
+  Tượng không qua sông, Sĩ/Tướng trong cung, Pháo ăn qua đúng một ngòi, Tốt qua sông được đi ngang, cấm hai Tướng đối
+  mặt. Chiếu bí **và hết nước đi (vây khốn) đều là thua**. Hòa khi lặp thế cờ ba lần, 60 nước mỗi bên không ăn quân
+  (`NO_CAPTURE_LIMIT` = 120 nửa nước), hai bên không còn Xe/Mã/Pháo/Tốt, hoặc thỏa thuận. Đơn giản hóa: không áp dụng
+  luật cấm trường chiếu/trường bắt — mọi lặp ba lần là hòa. Ký hiệu kiểu Việt Nam (“P2-5”, “M8.7”, “X1/2”, t/s cho
+  quân trước/sau cùng cột, “+” là chiếu). Quân hiển thị chữ Hán (mặc định) hoặc tên tiếng Việt. Bản lưu chỉ chứa danh
+  sách nước đi và được kiểm tra bằng cách đi lại từ đầu; nước sai thì bỏ bản lưu.
 - **Cờ đam** — American Checkers / English Draughts, luật tự viết trong `logic.js`.
 - **Cờ caro** — Gomoku luật tự do 15×15 (≥ 5 quân thắng, không luật cấm Renju).
 
@@ -182,7 +198,7 @@ Hạn chế hiện tại: chưa có Split, Insurance, Surrender trong Blackjack;
 Klondike/FreeCell/Spider có giải được hay không; chưa có điểm số kiểu Windows (chỉ đếm nước đi và thời gian);
 bàn nhiều cột (Spider 10 cột) trên màn hình rất hẹp (< 340 px) dùng lá khá nhỏ — xoay ngang sẽ dễ nhìn hơn.
 
-## Chơi với máy (Cờ vua, Cờ đam, Cờ caro)
+## Chơi với máy (Cờ vua, Cờ tướng, Cờ đam, Cờ caro)
 
 Mỗi trang có thẻ **Chế độ chơi**: Hai người / Chơi với máy, chọn bên quân và độ khó (Dễ, Trung bình,
 Khó). Máy tính toán trong Web Worker (`js/common/ai-worker.js`, gọi qua `ai-client.js`) nên giao diện
@@ -191,6 +207,9 @@ trước của người chơi. Thuật toán nằm trong `js/games/<game>/ai.js`
 
 - **Cờ vua** — negamax alpha-beta + tìm kiếm tĩnh (bắt quân), đánh giá vật chất + bảng điểm vị trí,
   sâu dần theo thời gian (Khó ≈ 1,8 giây/nước). Dùng các hàm nội bộ của chess.js 1.0.0 cho tốc độ.
+- **Cờ tướng** — negamax alpha-beta + tìm kiếm tĩnh (chỉ nước ăn quân), gia hạn khi bị chiếu, xếp nước theo
+  MVV-LVA + nước sát thủ, đánh giá vật chất + điểm vị trí đơn giản; nước tạo thế lặp lần ba được chấm như hòa.
+  Sâu dần theo thời gian (Dễ 2 nửa nước + nhiễu, Trung bình ≤ 4 nửa nước ≈ 0,9 giây, Khó ≈ 2 giây/nước).
 - **Cờ đam** — negamax alpha-beta trên trọn lượt (gộp chuỗi nhảy), không cắt ngang khi còn nước bắt.
 - **Cờ caro** — chấm điểm mẫu quân (năm, bốn mở, bốn, ba mở…) cho tấn công + phòng thủ; mức Khó
   thêm tìm kiếm VCF (chuỗi nước bốn ép buộc) cho cả hai bên.
@@ -200,6 +219,17 @@ trước của người chơi. Thuật toán nằm trong `js/games/<game>/ai.js`
 ```bash
 node tests/run-all.mjs
 ```
+
+Kiểm thử Cờ tướng (`tests/xiangqi.test.mjs`, `xiangqi-ai.test.mjs`): perft 1–3 từ thế ban đầu khớp số liệu chuẩn
+(44 / 1 920 / 79 666), cản chân Mã, cản mắt Tượng, Tượng không qua sông, Pháo ăn qua một ngòi, Tốt trước/sau sông,
+cung Tướng, cấm lộ mặt Tướng, chiếu bằng Mã/Pháo/Tốt, chiếu bí, vây khốn là thua, hòa lặp ba lần / 60 nước / hết quân
+tấn công, ký hiệu Việt Nam, nước sai và bản lưu hỏng bị từ chối; máy thấy chiếu bí một nước, ăn quân miễn phí, không
+để mất Xe, và mức Khó không thua mức Dễ trong tự đấu.
+
+Kiểm thử Xếp gạch (`tests/tetris.test.mjs`): túi 7 đủ bảy loại và tái hiện theo seed, vị trí xuất hiện, trọng lực và
+rơi nhanh, khóa trễ và giới hạn gia hạn, xóa 1–4 hàng và dồn hàng, lên cấp, B2B và combo, đá tường SRS, xoay bốn lần về
+chỗ cũ, T-spin Đôi, giữ khối, thua do chặn đầu, lưu/tải bằng JSON (và từ chối bản lưu hỏng), cùng 30 ván ngẫu nhiên
+không bao giờ có khối chồng lên ô đã khóa.
 
 Kiểm thử Bắn tàu (`tests/battleship.test.mjs`): kích thước tàu, không vượt bàn/không chồng nhau, cho phép chạm nhau,
 đặt ngẫu nhiên luôn đủ năm tàu hợp lệ trên 1.500 seed (kể cả khi giữ sẵn một số tàu), trúng/trượt/bắn lặp/sai lượt,

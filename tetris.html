@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Xếp gạch · Trí Tuệ Bàn Cờ</title>
+  <meta name="description" content="Chơi Xếp gạch (kiểu Tetris): xoay chuẩn SRS, túi 7 khối, giữ khối, bóng khối, T-spin và combo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect x=%273%27 y=%273%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Crect x=%2717%27 y=%2717%27 width=%2712%27 height=%2712%27 rx=%273%27 fill=%27%234f46e5%27/%3E%3Ccircle cx=%2723%27 cy=%279%27 r=%276%27 fill=%27%23171c2c%27/%3E%3Ccircle cx=%279%27 cy=%2723%27 r=%275%27 fill=%27none%27 stroke=%27%23171c2c%27 stroke-width=%272.5%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/vendor/p5.min.js" defer></script>
+  <script type="module" src="js/games/tetris/main.js"></script>
+</head>
+<body>
+  <header id="site-header" class="site-header"></header>
+
+  <main class="container game-page">
+    <div class="game-title">
+      <h1>Xếp gạch</h1>
+      <span class="subtitle">Xếp khối lấp đầy hàng ngang để xóa hàng, đừng để chồng khối chạm đỉnh</span>
+    </div>
+
+    <div class="game-layout">
+      <section class="board-area" aria-label="Giếng chơi">
+        <div class="status-bar">
+          <span class="chip"><span class="label">Điểm</span> <span id="score">0</span></span>
+          <span class="chip"><span class="label">Hàng</span> <span id="lines">0</span></span>
+          <span class="chip"><span class="label">Cấp</span> <span id="level">1</span></span>
+          <span class="chip"><span class="label">Thời gian</span> <span id="timer">00:00</span></span>
+          <span class="chip" id="chip-state"></span>
+        </div>
+        <div class="board-wrap" id="board"></div>
+        <div class="tetris-pad" role="group" aria-label="Nút điều khiển">
+          <button type="button" class="btn" data-key="ccw" aria-label="Xoay ngược chiều kim đồng hồ">⟲</button>
+          <button type="button" class="btn" data-key="hold" aria-label="Giữ khối">Giữ</button>
+          <button type="button" class="btn" data-key="cw" aria-label="Xoay theo chiều kim đồng hồ">⟳</button>
+          <button type="button" class="btn" data-key="drop" aria-label="Thả thẳng xuống">⤓</button>
+          <button type="button" class="btn" data-key="left" aria-label="Sang trái">◀</button>
+          <button type="button" class="btn" data-key="down" aria-label="Rơi nhanh">▼</button>
+          <button type="button" class="btn" data-key="right" aria-label="Sang phải">▶</button>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="card">
+          <h2>Ván chơi</h2>
+          <div class="btn-row">
+            <button type="button" class="btn btn-primary" data-action="toggle" id="toggle">Bắt đầu</button>
+            <button type="button" class="btn" data-action="new-game">Ván mới</button>
+          </div>
+          <label class="field"><span>Cấp bắt đầu</span>
+            <select class="select" id="opt-level">
+              <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+              <option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+              <option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option>
+            </select>
+          </label>
+          <label class="check"><input type="checkbox" id="opt-ghost"> Hiện bóng khối (vị trí khối sẽ rơi tới)</label>
+          <p class="muted" id="level-info"></p>
+        </div>
+
+        <div class="card">
+          <h2>Điểm cao</h2>
+          <ol class="best-list" id="best-list"></ol>
+        </div>
+
+        <details class="card rules" open>
+          <summary>Luật chơi &amp; hướng dẫn</summary>
+          <ul>
+            <li>Giếng rộng 10 cột, cao 20 hàng. Bảy loại khối (I, O, T, S, Z, J, L) lần lượt rơi xuống; lấp đầy một hàng ngang thì hàng đó biến mất.</li>
+            <li>Thứ tự khối theo <b>túi 7</b>: mỗi lượt bảy khối có đủ cả bảy loại theo thứ tự ngẫu nhiên. Cột phải hiện 5 khối tiếp theo.</li>
+            <li><b>Bàn phím:</b> ← → di chuyển (giữ để lặp), ↓ rơi nhanh, ↑ hoặc X xoay phải, Z xoay trái, Space thả thẳng, C hoặc Shift giữ khối, P hoặc Esc tạm dừng, Enter bắt đầu/tiếp tục.</li>
+            <li><b>Điện thoại:</b> dùng các nút dưới giếng (giữ ◀ ▶ ▼ để lặp); chạm vào giếng để xoay phải.</li>
+            <li><b>Giữ khối:</b> cất khối đang rơi để dùng sau; mỗi khối chỉ được giữ một lần cho tới khi đặt xong khối kế tiếp.</li>
+            <li>Khối chạm đáy còn 0,5 giây để chỉnh trước khi khóa; mỗi lần di chuyển/xoay được gia hạn, tối đa 15 lần.</li>
+            <li><b>Điểm</b> (nhân với cấp): 1 hàng 100, 2 hàng 300, 3 hàng 500, 4 hàng (Tetris) 800; T-spin 400 / 800 / 1200 / 1600. Tetris hoặc T-spin liên tiếp (B2B) ×1,5; combo thêm 50 × số combo × cấp. Rơi nhanh +1, thả thẳng +2 mỗi hàng.</li>
+            <li>Lên một cấp sau mỗi 10 hàng (tối đa cấp 20); cấp càng cao khối rơi càng nhanh.</li>
+            <li><b>Thua</b> khi khối mới không còn chỗ xuất hiện hoặc khối khóa hoàn toàn trên đỉnh giếng.</li>
+          </ul>
+          <p class="note">Xoay theo chuẩn SRS có đá tường. T-spin được nhận theo quy tắc 3 góc (khối T vừa xoay và ít nhất 3 trong 4 góc chéo bị chặn); không phân biệt T-spin mini. Ván tự tạm dừng khi bạn rời tab.</p>
+        </details>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <noscript><p class="noscript">Trang này cần bật JavaScript để chơi.</p></noscript>
+</body>
+</html>

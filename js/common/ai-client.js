@@ -4,6 +4,7 @@ const FALLBACK = {
   chess: () => import('../games/chess/ai.js'),
   checkers: () => import('../games/checkers/ai.js'),
   gomoku: () => import('../games/gomoku/ai.js'),
+  xiangqi: () => import('../games/xiangqi/ai.js'),
 };
 
 export class AIPlayer {
